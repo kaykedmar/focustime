@@ -1,0 +1,83 @@
+* { 
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+:root { 
+  --bg-color: #121214;
+  --base-color: 194;
+  --primary-color: #42D3FF;
+  --bg-primary-light: rgba(66, 211, 255, 0.13);
+
+
+
+  /* Fazendo 10Px ser equivalente a 1rem */
+  font-size: 62.5%;
+}
+
+body { 
+  background-color: var(--bg-color);
+  font-weight: bold;
+  font-family: sans-serif;
+
+  min-height: 100vh;
+
+  color: white;
+
+  display: grid;
+ 
+  
+  
+}
+
+button { 
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+
+}
+
+.hide { 
+  display: none;
+}
+
+button svg { 
+  width: clamp(3.2rem, 2rem + 12vw, 6.4rem);
+}
+
+main { 
+  align-self: end;
+  justify-self: center;
+}
+
+
+
+#time { 
+  font-size: clamp(4rem, 4rem + 10vw, 8.8rem);
+
+  display: flex;
+  margin-bottom: 1.6rem;
+}
+
+
+#controls { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--bg-primary-light);
+
+  border-radius: 9999px;
+
+  width: clamp(10rem, 10rem + 30vw, 22.8rem);
+  height: clamp(8rem, 1rem + 10vh, 10.8rem);
+}
+
+footer { 
+  align-self: center;
+  justify-self: end;
+  margin-right: 2rem;
+}
