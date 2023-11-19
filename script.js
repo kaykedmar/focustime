@@ -6,21 +6,44 @@ const buttonSoundOn = document.querySelector('.sound-on')
 const buttonSoundOFF = document.querySelector('.sound-off')
 const minutesDisplay = document.querySelector('.minutes')
 const secondsDisplay = document.querySelector('.seconds')
-let minutes; 
+let minutes;
 
-function countdown() { 
-  setTimeout(function() { 
+
+function resetControls() {
+  buttonPlay.classList.remove('hide')
+  buttonPause.classList.add('hide')
+  buttonSet.classList.remove('hide')
+  buttonStop.classList.add('hide')
+}
+
+function updateTimerDisplay(minutes, seconds) { 
+  minutesDisplay.textContent = String(minutes).padStart(2, '0')
+  secondsDisplay.textContent = String(seconds).padStart(2, '0')
+
+}
+
+function countdown() {
+  setTimeout(function () {
     let seconds = Number(secondsDisplay.textContent)
+    let minutes = Number(minutesDisplay.textContent)
 
-    if (seconds <= 0) { 
-      seconds = 60
+    updateTimerDisplay(minutes, 0)
+
+    if (minutes <= 0) {
+      resetControls()
+      return
     }
 
-    secondsDisplay.textContent = seconds - 1
-
+    if (seconds <= 0) {
+      seconds = 2
+      --minutes
+    }
+    
+    updateTimerDisplay(minutes, String(seconds - 1))
+    
     countdown()
 
-  }, 1000 )
+  }, 1000)
 }
 
 
@@ -39,25 +62,21 @@ buttonPause.addEventListener('click', () => {
 })
 
 
-buttonStop.addEventListener('click', () => { 
-  buttonPlay.classList.remove('hide')
-  buttonPause.classList.add('hide')
-  buttonSet.classList.remove('hide')
-  buttonStop.classList.add('hide')
+buttonStop.addEventListener('click', () => {
+  resetControls()
 })
 
-buttonSoundOn.addEventListener('click', () => { 
+buttonSoundOn.addEventListener('click', () => {
   buttonSoundOn.classList.add('hide')
   buttonSoundOFF.classList.remove('hide')
 })
 
-buttonSoundOFF.addEventListener('click', () => { 
+buttonSoundOFF.addEventListener('click', () => {
   buttonSoundOFF.classList.add('hide')
   buttonSoundOn.classList.remove('hide')
 })
 
 
-buttonSet.addEventListener('click', () => { 
+buttonSet.addEventListener('click', () => {
   minutes = prompt('Quantos minutos?')
-  minutesDisplay.textContent = minutes
-})
+  updateTimerDisplay(minutes, 0)}) 
