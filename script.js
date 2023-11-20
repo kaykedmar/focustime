@@ -19,7 +19,10 @@ function resetControls() {
 function updateTimerDisplay(minutes, seconds) { 
   minutesDisplay.textContent = String(minutes).padStart(2, '0')
   secondsDisplay.textContent = String(seconds).padStart(2, '0')
+}
 
+function resetTimer() { 
+  updateTimerDisplay(0, 0)
 }
 
 function countdown() {
@@ -27,7 +30,7 @@ function countdown() {
     let seconds = Number(secondsDisplay.textContent)
     let minutes = Number(minutesDisplay.textContent)
 
-    updateTimerDisplay(minutes, 0)
+    updateTimerDisplay(25, 0)
 
     if (minutes <= 0) {
       resetControls()
@@ -59,12 +62,15 @@ buttonPlay.addEventListener('click', () => {
 buttonPause.addEventListener('click', () => {
   buttonPause.classList.add('hide')
   buttonPlay.classList.remove('hide')
+
+  clearTimeout(timeTimerOut);
+
 })
 
 
 buttonStop.addEventListener('click', () => {
-  clearTimeout(timeTimerOut);
   resetControls();
+  resetTimer()
 })
 
 buttonSoundOn.addEventListener('click', () => {
