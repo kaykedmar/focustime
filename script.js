@@ -23,7 +23,7 @@ function updateTimerDisplay(minutes, seconds) {
 }
 
 function countdown() {
-  setTimeout(function () {
+  timeTimerOut =  setTimeout(function () {
     let seconds = Number(secondsDisplay.textContent)
     let minutes = Number(minutesDisplay.textContent)
 
@@ -35,7 +35,7 @@ function countdown() {
     }
 
     if (seconds <= 0) {
-      seconds = 2
+      seconds = 60
       --minutes
     }
     
@@ -63,7 +63,8 @@ buttonPause.addEventListener('click', () => {
 
 
 buttonStop.addEventListener('click', () => {
-  resetControls()
+  clearTimeout(timeTimerOut);
+  resetControls();
 })
 
 buttonSoundOn.addEventListener('click', () => {
@@ -78,6 +79,7 @@ buttonSoundOFF.addEventListener('click', () => {
 
 
 buttonSet.addEventListener('click', () => {
-  minutes = prompt('How many minutes?')
-  seconds = prompt('How many seconds?')
+  minutes = prompt('How many minutes?') || 25
+  seconds = prompt('How many seconds?') || 0
   updateTimerDisplay(minutes, seconds)}) 
+  
