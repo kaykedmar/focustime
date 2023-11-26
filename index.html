@@ -1,56 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
 
-  <link rel="stylesheet" href="style.css">
-  <script src="js/index.js" defer></script>
+    <title>Focus Time</title>
+  </head>
 
-  <title>Focus Time</title>
+  <body>
+    <main>
+      <div id="time">
+        <span class="minutes">02</span>
+        <span>:</span>
+        <span class="seconds">00</span>
+      </div>
 
-</head>
+      <div id="controls">
+        <button class="play">
+          <img src="svg/play.svg" alt="" />
+        </button>
 
-<body>
-  <main>
+        <button class="pause hide">
+          <img src="svg/pause.svg" alt="" />
+        </button>
 
-    <div id="time">
+        <button class="stop hide">
+          <img src="svg/stop.svg" alt="" />
+        </button>
 
-      <span class="minutes">02</span>
-      <span>:</span>
-      <span class="seconds">00</span>
+        <button class="set">
+          <img src="svg/stopwatch.svg" alt="" />
+        </button>
+      </div>
+    </main>
 
-    </div>
-
-    <div id="controls">
-
-      <button class="play">
-        <img src="svg/play.svg" alt="">
-      </button>
-
-      <button class="pause hide">
-        <img src="svg/pause.svg" alt="">
-      </button>
-
-      <button class="stop hide">
-        <img src="svg/stop.svg" alt="">
-      </button>
-
-      <button class="set">
-        <img src="svg/stopwatch.svg" alt="">
-      </button>
-
-    </div>
-    
-  </main>
-  
     <footer>
-     <button class="sound-on"><img src="svg/soundON.svg" alt=""></button> 
-     <button class="sound-off hide"><img src="svg/sound-OFF.svg" alt=""></button>
+      <button class="sound-on"><img src="svg/soundON.svg" alt="" /></button>
+      <button class="sound-off hide">
+        <img src="svg/sound-OFF.svg" alt="" />
+      </button>
     </footer>
 
-
-</body>
-
+    <script src="js/index.js" type="module"></script>
+  </body>
 </html>
