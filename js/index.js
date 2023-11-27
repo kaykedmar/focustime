@@ -17,6 +17,8 @@ const secondsDisplay = document.querySelector(".seconds");
 
 let minutes;
 
+
+// Resetar os controles
 function resetControls() { 
   buttonPlay.classList.remove("hide");
   buttonPause.classList.add("hide");
@@ -24,10 +26,10 @@ function resetControls() {
   buttonStop.classList.add("hide");
 }
 
+//Atualizar o display na DOM
 function updateTimerDisplay(minutes, seconds) { 
   minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
   secondsDisplay.innerHTML = String(seconds).padStart(2, "0");
-
 }
 
 function countdown() {
@@ -90,5 +92,5 @@ buttonSoundOff.addEventListener("click", function () {
 
 buttonSet.addEventListener("click", function () {
   minutes = prompt("How many minutes?");
-  updateTimerDisplay(minutes, seconds)
+  updateTimerDisplay(minutes, 0)
 });
