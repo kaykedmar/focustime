@@ -41,10 +41,7 @@ function countdown() {
 
     if (minutes <= 0 && seconds <= 0) { 
       resetControls()
-      return
-    }{
-      resetControls();
-      return; //para de executar a função se minutes for 0, impede que seja minutes negativos
+      return//para de executar a função se minutes/seconds for 0, impede que seja minutes negativos
     }
 
     if (seconds <= 0) {
