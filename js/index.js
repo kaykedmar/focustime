@@ -17,9 +17,8 @@ const secondsDisplay = document.querySelector(".seconds");
 
 let minutes;
 
-
 // Resetar os controles
-function resetControls() { 
+function resetControls() {
   buttonPlay.classList.remove("hide");
   buttonPause.classList.add("hide");
   buttonSet.classList.remove("hide");
@@ -27,7 +26,7 @@ function resetControls() {
 }
 
 //Atualizar o display na DOM
-function updateTimerDisplay(minutes, seconds) { 
+function updateTimerDisplay(minutes, seconds) {
   minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
   secondsDisplay.innerHTML = String(seconds).padStart(2, "0");
 }
@@ -38,24 +37,21 @@ function countdown() {
     let seconds = Number(secondsDisplay.textContent); //Transformando String em Numero
     let minutes = Number(minutesDisplay.textContent);
 
-    secondsDisplay.textContent = '00'
+    updateTimerDisplay(minutes, 0);
 
     if (minutes <= 0) {
-      resetControls() 
+      resetControls();
       return; //para de executar a função se minutes for 0, impede que seja minutes negativos
     }
 
     if (seconds <= 0) {
       // Quando os segundos chegam a 0, reiniciar para 60
-
-      seconds = 5; //atualiza os segundos 
-
-      minutesDisplay.textContent = String(minutes - 1) //minutes a ser Diminuido,
-        .padStart(2, "0");
+      seconds = 5; //atualiza os segundos
+      
+      --minutes; // Decremetei minutes = - 1 minuto
     }
 
-    secondsDisplay.textContent = String(seconds - 1) //Seconds a ser Diminuido,
-      .padStart(2, "0"); // para adicionar um 0 quando tiver so 1 numeros,
+    updateTimerDisplay(minutes, String(seconds - 1)); //Seconds a ser Diminuido,
 
     countdown(); // colocar a propria função dentro dela para que execute novamente
   }, 1000); // tempo para executar a funcao callback
@@ -77,7 +73,7 @@ buttonPause.addEventListener("click", function () {
 });
 
 buttonStop.addEventListener("click", function () {
-  resetControls()
+  resetControls();
 });
 
 buttonSoundOn.addEventListener("click", function () {
@@ -92,5 +88,5 @@ buttonSoundOff.addEventListener("click", function () {
 
 buttonSet.addEventListener("click", function () {
   minutes = prompt("How many minutes?");
-  updateTimerDisplay(minutes, 0)
+  updateTimerDisplay(minutes, 0);
 });
