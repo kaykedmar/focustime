@@ -39,7 +39,10 @@ function countdown() {
 
     updateTimerDisplay(minutes, 0);
 
-    if (minutes <= 0) {
+    if (minutes <= 0 && seconds <= 0) { 
+      resetControls()
+      return
+    }{
       resetControls();
       return; //para de executar a função se minutes for 0, impede que seja minutes negativos
     }
