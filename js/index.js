@@ -1,9 +1,9 @@
 // DOM
-// Document referencia ao HTML
-// Primeiro declarar as variaveis que vou modificar ou atribuir um valor
-// Clean code (variaveis com nomes significativos)
+// Documento referente ao HTML
+// Primeiro, declare as variáveis que serão modificadas ou receberão valores.
+// Siga princípios de Clean Code, usando nomes de variáveis significativos.
 
-/* === MINHAS VARIAVEIS ====*/
+/* === MINHAS VARIÁVEIS === */
 const buttonPlay = document.querySelector(".play");
 const buttonPause = document.querySelector(".pause");
 const buttonStop = document.querySelector(".stop");
@@ -11,13 +11,14 @@ const buttonSet = document.querySelector(".set");
 const buttonSoundOn = document.querySelector(".sound-on");
 const buttonSoundOff = document.querySelector(".sound-off");
 
-/* Variveis responsaveis por mostrar o tempo na DOM*/
+/* Variáveis responsáveis por exibir o tempo na DOM */
 const minutesDisplay = document.querySelector(".minutes");
 const secondsDisplay = document.querySelector(".seconds");
 
-let minutes;
+let minutes = Number(minutesDisplay.textContent);
+let timeTimerOut;
 
-// Resetar os controles
+// Resetar os controles para o estado inicial
 function resetControls() {
   buttonPlay.classList.remove("hide");
   buttonPause.classList.add("hide");
@@ -25,68 +26,98 @@ function resetControls() {
   buttonStop.classList.add("hide");
 }
 
-//Atualizar o display na DOM
+// Resetar o tempo na DOM para o estado inicial
+function resetTimer() {
+  updateTimerDisplay(minutes, 0);
+  clearTimeout(timeTimerOut);
+}
+
+// Atualizar a exibição do temporizador na DOM
 function updateTimerDisplay(minutes, seconds) {
   minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
   secondsDisplay.innerHTML = String(seconds).padStart(2, "0");
 }
 
+// Função principal do temporizador regressivo
 function countdown() {
   // Utilizando setTimeout para atrasar a execução de um trecho de código.
-  setTimeout(function () {
-    let seconds = Number(secondsDisplay.textContent); //Transformando String em Numero
+  timeTimerOut = setTimeout(function () {
+    let seconds = Number(secondsDisplay.textContent); // Transformando String em Número
     let minutes = Number(minutesDisplay.textContent);
 
     updateTimerDisplay(minutes, 0);
 
-    if (minutes <= 0 && seconds <= 0) { 
-      resetControls()
-      return//para de executar a função se minutes/seconds for 0, impede que seja minutes negativos
+    if (minutes <= 0 && seconds <= 0) {
+      resetControls();
+      return; // Para de executar a função se minutes/seconds for 0, impedindo minutes negativos
     }
 
     if (seconds <= 0) {
       // Quando os segundos chegam a 0, reiniciar para 60
-      seconds = 5; //atualiza os segundos
-      
-      --minutes; // Decremetei minutes = - 1 minuto
+      seconds = 5; // Atualiza os segundos
+      --minutes; // Decrementa minutes em 1 minuto
     }
 
-    updateTimerDisplay(minutes, String(seconds - 1)); //Seconds a ser Diminuido,
+    updateTimerDisplay(minutes, String(seconds - 1)); // Segundos a serem diminuídos
 
-    countdown(); // colocar a propria função dentro dela para que execute novamente
-  }, 1000); // tempo para executar a funcao callback
+    countdown(); // Chama a própria função para executar novamente
+  }, 1000); // Tempo para executar a função de callback (1 segundo)
 }
 
-// CallBacks
+// Callbacks dos botões
 buttonPlay.addEventListener("click", function () {
+  // Altera a visibilidade dos botões durante a execução
   buttonPlay.classList.add("hide");
   buttonPause.classList.remove("hide");
   buttonSet.classList.add("hide");
   buttonStop.classList.remove("hide");
 
+  // Inicia o temporizador regressivo
   countdown();
 });
 
 buttonPause.addEventListener("click", function () {
+  // Altera a visibilidade dos botões durante a pausa
   buttonPause.classList.add("hide");
   buttonPlay.classList.remove("hide");
+
+  // Pausa o temporizador
+  clearTimeout(timeTimerOut);
 });
 
 buttonStop.addEventListener("click", function () {
+  // Reseta os controles e o temporizador
   resetControls();
+  resetTimer();
 });
 
 buttonSoundOn.addEventListener("click", function () {
+  // Alterna os ícones de som
   buttonSoundOn.classList.add("hide");
   buttonSoundOff.classList.remove("hide");
 });
 
 buttonSoundOff.addEventListener("click", function () {
+  // Alterna os ícones de som
   buttonSoundOff.classList.add("hide");
   buttonSoundOn.classList.remove("hide");
 });
 
+// Event listener para o botão de configuração (buttonSet)
 buttonSet.addEventListener("click", function () {
-  minutes = prompt("How many minutes?");
+  // Solicita ao usuário o número de minutos por meio de um prompt
+  let newMinutes = prompt("How many minutes?");
+
+  // Verifica se o usuário cancelou o prompt ou não forneceu um valor // ! = NAO
+  if (!newMinutes) {
+    // Se o usuário cancelar, restaura o temporizador para o estado inicial e sai da função
+    resetTimer();
+    return;
+  }
+
+  // Atualiza o valor de minutes com o novo valor fornecido pelo usuário
+  minutes = newMinutes;
+
+  // Atualiza a exibição do temporizador na DOM com os novos minutos e 0 segundos
   updateTimerDisplay(minutes, 0);
 });
