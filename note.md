@@ -10,3 +10,9 @@ setTimeout: (function() { }, tempo)
 
 Paramentros:
  são parâmetros da função. Os parâmetros são variáveis que recebem valores quando a função é chamada. No contexto dessa função específica:
+
+---------------------
+ES6 Modules
+Factory: 
+Injeção de dependencias 
+
