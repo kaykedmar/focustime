@@ -1,5 +1,5 @@
 // Essa estrutura e chamada de Factory: 
-export function Timer({
+export default function Timer({
   minutesDisplay,
   secondsDisplay,
   timeTimerOut,
@@ -7,13 +7,13 @@ export function Timer({
 }) {
   
   // Atualizar a exibição do temporizador na DOM
-  function updateTimerDisplay(minutes, seconds) {
+  function updateDisplay(minutes, seconds) {
     minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
     secondsDisplay.innerHTML = String(seconds).padStart(2, "0");
   }
 
-  function resetTimer() {
-    updateTimerDisplay(minutes, 0);
+  function reset() {
+    updateDisplay(minutes, 0);
     clearTimeout(timeTimerOut);
   }
 
@@ -24,7 +24,7 @@ export function Timer({
       let seconds = Number(secondsDisplay.textContent); // Transformando String em Número
       let minutes = Number(minutesDisplay.textContent);
 
-      updateTimerDisplay(minutes, 0);
+      updateDisplay(minutes, 0);
 
       if (minutes <= 0 && seconds <= 0) {
         resetControls();
@@ -37,7 +37,7 @@ export function Timer({
         --minutes; // Decrementa minutes em 1 minuto
       }
 
-      updateTimerDisplay(minutes, String(seconds - 1)); // Segundos a serem diminuídos
+      updateDisplay(minutes, String(seconds - 1)); // Segundos a serem diminuídos
 
       countdown(); // Chama a própria função para executar novamente
     }, 1000); // Tempo para executar a função de callback (1 segundo)
@@ -46,6 +46,7 @@ export function Timer({
   // Objeto Short
   return {
     countdown,
-    resetTimer,
+    reset,
+    updateDisplay,
   };  
 }

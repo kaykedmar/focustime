@@ -1,6 +1,6 @@
 // ES6 Modules
-import { Timer } from "./timer.js";
-import resetControls from "./controls.js";
+import  Timer  from "./timer.js";
+import Controls from "./controls.js";
 
 // DOM
 // Documento referente ao HTML
@@ -22,58 +22,56 @@ const secondsDisplay = document.querySelector(".seconds");
 let minutes = Number(minutesDisplay.textContent);
 let timeTimerOut;
 
+const controls = Controls({
+  buttonPlay,
+  buttonPause,
+  buttonStop,
+  buttonSet,
+}) 
+
 // Objeto ES6 Modules//   
 const timer = Timer({
   //Dependências  
   minutesDisplay,
   secondsDisplay,
   timeTimerOut,
-  resetControls,
+  resetControls: controls.reset
 });
+
+
+
 
 // Callbacks dos botões
 buttonPlay.addEventListener("click", function () {
-  // Altera a visibilidade dos botões durante a execução
-  buttonPlay.classList.add("hide");
-  buttonPause.classList.remove("hide");
-  buttonSet.classList.add("hide");
-  buttonStop.classList.remove("hide");
-
+  controls.play()
   // Inicia o temporizador regressivo
   timer.countdown();
 });
 
 buttonPause.addEventListener("click", function () {
-  // Altera a visibilidade dos botões durante a pausa
-  buttonPause.classList.add("hide");
-  buttonPlay.classList.remove("hide");
-
-  // Pausa o temporizador
+  controls.pause()
   clearTimeout(timeTimerOut);
 });
 
 buttonStop.addEventListener("click", function () {
   // Reseta os controles e o temporizador
-  resetControls();
-  timer.resetTimer();
+  controls.reset();
+  timer.reset();
 });
 
 buttonSoundOn.addEventListener("click", function () {
-  // Alterna os ícones de som
-  buttonSoundOn.classList.add("hide");
-  buttonSoundOff.classList.remove("hide");
+  controls.soundOn()
 });
 
 buttonSoundOff.addEventListener("click", function () {
-  // Alterna os ícones de som
-  buttonSoundOff.classList.add("hide");
-  buttonSoundOn.classList.remove("hide");
+  controls.soundOFF()
 });
 
 // Event listener para o botão de configuração (buttonSet)
 buttonSet.addEventListener("click", function () {
+  
   // Solicita ao usuário o número de minutos por meio de um prompt
-  let newMinutes = prompt("How many minutes?");
+  let newMinutes = controls.getMinutes()
 
   // Verifica se o usuário cancelou o prompt ou não forneceu um valor // ! = NAO
   if (!newMinutes) {
@@ -86,5 +84,5 @@ buttonSet.addEventListener("click", function () {
   minutes = newMinutes;
 
   // Atualiza a exibição do temporizador na DOM com os novos minutos e 0 segundos
-  updateTimerDisplay(minutes, 0);
+  timer.updateDisplay(minutes, 0);
 });
