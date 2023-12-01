@@ -1,6 +1,6 @@
 // ES6 Modules
-import resetControls from "./controls.js";
 import { Timer } from "./timer.js";
+import resetControls from "./controls.js";
 
 // DOM
 // Documento referente ao HTML
@@ -22,7 +22,7 @@ const secondsDisplay = document.querySelector(".seconds");
 let minutes = Number(minutesDisplay.textContent);
 let timeTimerOut;
 
-// Objeto ES6 Modules// 
+// Objeto ES6 Modules//   
 const timer = Timer({
   //Dependências  
   minutesDisplay,

@@ -1,9 +1,11 @@
+// Essa estrutura e chamada de Factory: 
 export function Timer({
   minutesDisplay,
   secondsDisplay,
   timeTimerOut,
   resetControls,
 }) {
+  
   // Atualizar a exibição do temporizador na DOM
   function updateTimerDisplay(minutes, seconds) {
     minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
@@ -41,6 +43,7 @@ export function Timer({
     }, 1000); // Tempo para executar a função de callback (1 segundo)
   }
   
+  // Objeto Short
   return {
     countdown,
     resetTimer,
