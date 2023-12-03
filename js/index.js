@@ -35,7 +35,8 @@ const timer = Timer({
   minutesDisplay,
   secondsDisplay,
   timeTimerOut,
-  resetControls: controls.reset
+  resetControls: controls.reset,
+  minutes
 });
 
 
@@ -50,7 +51,7 @@ buttonPlay.addEventListener("click", function () {
 
 buttonPause.addEventListener("click", function () {
   controls.pause()
-  clearTimeout(timeTimerOut);
+  timer.hold()
 });
 
 buttonStop.addEventListener("click", function () {
@@ -85,4 +86,5 @@ buttonSet.addEventListener("click", function () {
 
   // Atualiza a exibição do temporizador na DOM com os novos minutos e 0 segundos
   timer.updateDisplay(minutes, 0);
+  timer.updateMinutes(minutes )
 });

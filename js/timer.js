@@ -1,20 +1,21 @@
-// Essa estrutura e chamada de Factory: 
+// Essa estrutura e chamada de Factory:
 export default function Timer({
   minutesDisplay,
   secondsDisplay,
   timeTimerOut,
   resetControls,
+  minutes,
 }) {
-  
   // Atualizar a exibição do temporizador na DOM
   function updateDisplay(minutes, seconds) {
     minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
     secondsDisplay.innerHTML = String(seconds).padStart(2, "0");
   }
 
+  // Função que reseta o temporizador e exibe o valor inicial no display
   function reset() {
-    updateDisplay(minutes, 0);
-    clearTimeout(timeTimerOut);
+    updateDisplay(minutes, 0); // Atualiza o display com o valor inicial de minutos (pode ser 0) e 0 segundos
+    clearTimeout(timeTimerOut); // Limpa qualquer temporizador em espera
   }
 
   // Função principal do temporizador regressivo
@@ -33,7 +34,7 @@ export default function Timer({
 
       if (seconds <= 0) {
         // Quando os segundos chegam a 0, reiniciar para 60
-        seconds = 5; // Atualiza os segundos
+        seconds = 3; // Atualiza os segundos
         --minutes; // Decrementa minutes em 1 minuto
       }
 
@@ -42,11 +43,24 @@ export default function Timer({
       countdown(); // Chama a própria função para executar novamente
     }, 1000); // Tempo para executar a função de callback (1 segundo)
   }
-  
+
+  // Função que atualiza o valor da variável 'minutes'
+  function updateMinutes(newMinutes) {
+    minutes = newMinutes; // Atualiza a variável 'minutes' com o novo valor fornecido
+  }
+
+  // Função que pausa o temporizador,
+  function hold() {
+    clearTimeout(timeTimerOut);
+  }
+
   // Objeto Short
+
   return {
     countdown,
     reset,
     updateDisplay,
-  };  
+    updateMinutes,
+    hold,
+  };
 }
