@@ -9,6 +9,7 @@ export default function Controls({
     buttonPause.classList.add("hide");
     buttonSet.classList.remove("hide");
     buttonStop.classList.add("hide");
+    
   }
 
   function play() {
@@ -27,17 +28,6 @@ export default function Controls({
     // Pausa o temporizador
   }
 
-  function soundOn() {
-    // Alterna os ícones de som
-    buttonSoundOn.classList.add("hide");
-    buttonSoundOff.classList.remove("hide");
-  }
-
-  function soundOFF() {
-    // Alterna os ícones de som
-    buttonSoundOff.classList.add("hide");
-    buttonSoundOn.classList.remove("hide");
-  }
 
   function getMinutes() {
     let newMinutes = prompt("How many minutes?");
@@ -56,8 +46,6 @@ export default function Controls({
     reset,
     play,
     pause,
-    soundOn,
-    soundOFF,
     getMinutes,
   };
 }

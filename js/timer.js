@@ -1,3 +1,5 @@
+import sounds from "./sounds";
+
 // Essa estrutura e chamada de Factory:
 export default function Timer({
   minutesDisplay,
@@ -7,8 +9,13 @@ export default function Timer({
   minutes,
 }) {
   // Atualizar a exibição do temporizador na DOM
-  function updateDisplay(minutes, seconds) {
-    minutesDisplay.innerHTML = String(minutes).padStart(2, "0");
+  function updateDisplay(newMinutes, seconds) {
+    // === = Exatamente Igual
+    // ? = if
+    // : = else
+    newMinutes = newMinutes === undefined ? minutes : newMinutes;
+    seconds = seconds === undefined ? 0 : seconds;
+    minutesDisplay.innerHTML = String(newMinutes).padStart(2, "0");
     secondsDisplay.innerHTML = String(seconds).padStart(2, "0");
   }
 
@@ -18,18 +25,20 @@ export default function Timer({
     clearTimeout(timeTimerOut); // Limpa qualquer temporizador em espera
   }
 
-  // Função principal do temporizador regressivo
+  // Função countdown - implementa a lógica principal do temporizador regressivo
   function countdown() {
     // Utilizando setTimeout para atrasar a execução de um trecho de código.
     timeTimerOut = setTimeout(function () {
-      let seconds = Number(secondsDisplay.textContent); // Transformando String em Número
-      let minutes = Number(minutesDisplay.textContent);
+      let seconds = Number(secondsDisplay.textContent); // Obtém o valor atual dos segundos
+      let minutes = Number(minutesDisplay.textContent); // Obtém o valor atual dos minutos
 
-      updateDisplay(minutes, 0);
+      updateDisplay(minutes, 0); // Atualiza a exibição com os minutos atuais
 
       if (minutes <= 0 && seconds <= 0) {
-        resetControls();
-        return; // Para de executar a função se minutes/seconds for 0, impedindo numeros negativos
+        updateDisplay(); // Atualiza a exibição para evitar números negativos
+        resetControls(); // Reseta os controles quando minutos e segundos são ambos zero
+        sounds.timeEnd();
+        return; // Para de executar a função se minutes/seconds for 0, impedindo números negativos
       }
 
       if (seconds <= 0) {
@@ -38,7 +47,7 @@ export default function Timer({
         --minutes; // Decrementa minutes em 1 minuto
       }
 
-      updateDisplay(minutes, String(seconds - 1)); // Segundos a serem diminuídos
+      updateDisplay(minutes, String(seconds - 1)); // Atualiza a exibição com os minutos e segundos atualizados
 
       countdown(); // Chama a própria função para executar novamente
     }, 1000); // Tempo para executar a função de callback (1 segundo)
@@ -55,7 +64,6 @@ export default function Timer({
   }
 
   // Objeto Short
-
   return {
     countdown,
     reset,
